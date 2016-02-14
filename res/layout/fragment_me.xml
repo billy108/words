@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#7CCD7C"
+        android:orientation="vertical"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/me_login_imageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/me_login_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="点击登录，可同步记录" />
+
+    </LinearLayout>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+             >
+
+            <TextView
+                android:id="@+id/me_wordsNote_textView"
+                style="@style/me_imageButton"
+                android:layout_weight="1"
+                android:text="单词本" />
+
+            <TextView
+                android:id="@+id/me_phraseNote_textView"
+                style="@style/me_imageButton"
+                android:layout_weight="1"
+                android:text="短语本" />
+
+            <TextView
+                android:id="@+id/me_studyInfo_textView"
+                style="@style/me_imageButton"
+                android:layout_weight="1"
+                android:text="学习统计" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="70dp" >
+
+            <TextView
+                android:id="@+id/me_punchCard_textView"
+                style="@style/me_imageButton"
+                android:layout_weight="1"
+                android:text="单词本" />
+
+            <TextView
+                android:id="@+id/me_customWords_textView"
+                style="@style/me_imageButton"
+                android:layout_weight="1"
+                android:text="短语本" />
+
+            <TextView
+                style="@style/me_imageButton"
+                android:layout_weight="1" />
+        </TableRow>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="vertical"
+            android:background="#EEEED1" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="bottom"
+                android:paddingLeft="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="10sp"
+                android:text="你还可以" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="35dp" 
+                android:background="#ffffff">
+                
+                <TextView
+                android:id="@+id/me_listening_textView"
+                style="@style/me_imageButton"
+                android:layout_weight="1"
+                android:text="听力" />
+
+           		<TextView
+                android:id="@+id/me_invitationCode_textView"
+                style="@style/me_imageButton"
+                android:layout_weight="1"
+                android:text="邀请码" />
+
+            	<TextView
+            	android:id="@+id/me_good_textView"
+                style="@style/me_imageButton"
+                android:layout_weight="1" 
+                android:text="给个好评"/>
+            
+            </TableRow>
+
+        </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.words"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity android:name="com.example.words.view.FirstViewPagerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.words.view.PhraseActivity" ></activity>
+        <activity android:name="com.example.words.view.DiscoveryActivity"></activity>
+        <activity android:name="com.example.words.view.MeActivity"></activity>
+        <activity android:name="com.example.words.view.ConsolidateWordActivity"></activity>
+        <activity android:name="com.example.words.view.WordActivity"></activity>
+        <activity android:name="com.example.words.view.ShowStudyActivity">
+            
+        </activity>
+        <activity android:name="com.example.words.view.FirstStudyActivity">
+        </activity>
+        <activity android:name="com.example.words.view.FirstActivity">
+            
+        </activity>
+        <activity android:name="com.example.words.view.ArrangeStudyActivity">
+            
+        </activity>
+        <activity android:name="com.example.words.view.SetStudyActivity">
+        </activity>
+        <activity android:name="com.example.words.view.LogonActivity">
+             
+        </activity>
+        <activity android:name="com.example.words.view.LoginActivity">
+           
+        </activity>
+        <activity android:name="com.example.words.view.Flash">
+            
+        </activity>
+        <activity
+            android:name="com.example.words.view.MainActivity"
+            android:label="@string/app_name" >
+            
+        </activity>
+    </application>
+
+</manifest>

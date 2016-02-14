@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView 
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_launcher"/>
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="20sp"
+        android:text="您好，您现在没有熟词需要复习哦~"
+        android:gravity="center_horizontal"/>
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="我们会根据您的学习进度智能安排需要复习的熟词。"/>
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="有需要复习的熟词时，按键的字体会变成黑色。"/>
+    <Button 
+        android:id="@+id/noconsolidateWord_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="好的，我知道了"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"/>
+    	
+</LinearLayout>

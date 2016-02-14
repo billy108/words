@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/flash" >
+    
+	<TextView 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="欢迎来到"
+	    android:layout_gravity="center_horizontal"
+	    android:layout_marginTop="100dip"
+	    android:textSize="50sp"
+	    android:textColor="#fff"/>
+	<TextView 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal"
+	    android:text="单词的世界"
+	    android:textSize="50sp"
+	    android:textColor="#fff"/>
+	
+	<TextView 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="bottom|right"
+	    android:textSize="20sp"
+	    android:layout_marginTop="100dip"
+	    android:textColor="#ADFF2F"
+	    android:text="by 赵升华"/>
+</LinearLayout>

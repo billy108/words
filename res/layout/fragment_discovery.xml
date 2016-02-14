@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+     >
+
+    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/smallClass_Button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="100dp"
+    		android:layout_marginRight="5dp"
+            android:text="知米小班" />
+
+        <Button
+            android:id="@+id/rankingList_Button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="100dp"
+    		android:layout_marginRight="5dp"
+            android:text="排行榜" />
+
+        <Button
+            android:id="@+id/action_Button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="100dp"
+            android:text="活动专区" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/learningMaterials_TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        android:paddingLeft="10dp"
+        android:text="学习资料" />
+
+    <Button
+        android:id="@+id/appMarketing_TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        android:paddingLeft="10dp"
+        android:text="应用市场"/>
+
+    <Button
+        android:id="@+id/shoppingMall_Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="10dp"
+        android:text="知米商城"/>
+
+</LinearLayout>

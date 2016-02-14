@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    
+    <LinearLayout 
+        android:id="@+id/ll_tabs"  
+        android:layout_width="match_parent"  
+        android:layout_height="50dp"  
+        android:layout_alignParentBottom="true" 
+        android:orientation="horizontal"
+        >
+        <TextView 
+            android:id="@+id/wordsButton"  
+            android:layout_width="0dp"  
+            android:layout_height="match_parent"  
+            android:layout_weight="1"
+            android:text="单词"
+            android:background="#009eff"
+            android:gravity="center"
+            android:textSize="20sp"
+            />
+          
+        <TextView   
+            android:id="@+id/phraseButton"  
+            android:layout_width="0dp"  
+            android:layout_height="match_parent"  
+            android:layout_weight="1"  
+            android:text="短语"  
+            android:background="#009eff"
+            android:gravity="center"
+            android:textSize="20sp"
+            />  
+        <TextView   
+            android:id="@+id/discoveryButton"  
+            android:layout_width="0dp"  
+            android:layout_height="match_parent"  
+            android:layout_weight="1"  
+            android:background="#009eff"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="发现"
+            />
+          
+        <TextView   
+            android:id="@+id/meButton"  
+            android:layout_width="0dp"  
+            android:layout_height="match_parent"  
+            android:layout_weight="1"  
+            android:text="我"  
+            android:background="#009eff"
+            android:gravity="center"
+            android:textSize="20sp"
+            />
+    </LinearLayout>
+    
+        <android.support.v4.view.ViewPager 
+        	android:id="@+id/viewpager"  
+       	 	android:layout_width="match_parent"  
+       		android:layout_height="wrap_content"
+        />
+    
+    <ImageView 
+        android:id="@+id/imgv_overtab"
+        android:background="#ff0000"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignStart="@id/ll_tabs"
+        />
+   
+    
+    
+
+</RelativeLayout>
