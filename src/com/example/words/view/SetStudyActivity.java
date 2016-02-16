@@ -1,23 +1,37 @@
 package com.example.words.view;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.example.words.R;
 import com.example.words.model.DBOpenHelper;
 import com.example.words.model.WordService;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class SetStudyActivity extends Activity {
 	
 	
 	private ListView setStudy;
 	private WordService service;
+	
+	private ArrayList<HashMap<String, Object>> listItem;
+	private String[] itemTV = {"初中","初中教材配套","高中","高中教材配套","大学","专业英语","出国考试","新概论英语"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +45,8 @@ public class SetStudyActivity extends Activity {
 
 	private void init() {
 		setStudy = (ListView) findViewById(R.id.setStudy);
-		setStudy.setAdapter(service.getStudyAdapter(this));
+		MyAdapter adapter = new MyAdapter(this);
+		setStudy.setAdapter(adapter);
 		setStudy.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -74,8 +89,17 @@ public class SetStudyActivity extends Activity {
 				}
 			}
 		});
+	}
+	
+	private ArrayList<HashMap<String, Object>> getDate(){
+		ArrayList<HashMap<String, Object>> item = new ArrayList<HashMap<String,Object>>();
 		
-		
+		for (int i = 0; i < itemTV.length; i++) {
+			HashMap<String , Object> map = new HashMap<String, Object>();
+			map.put("ItemTitle", itemTV[i]);
+			item.add(map);
+		}
+		return item;
 	}
 
 	protected void intentToShowStudy(final String title,int item) {
@@ -84,5 +108,64 @@ public class SetStudyActivity extends Activity {
 				intent.putExtra("item", item);
 				startActivity(intent);
 	}
+	
+	class MyAdapter extends BaseAdapter{
+		private LayoutInflater miInflater;
+		
+		public MyAdapter(Context context){
+			this.miInflater = LayoutInflater.from(context);
+		}
 
+		@Override
+		public int getCount() {
+			return getDate().size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return null;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return 0;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			ViewHolder holder;
+			final String titleItem;
+			
+			if (convertView == null) {
+				convertView = miInflater.inflate(R.layout.setstudy_item, null);
+				holder = new ViewHolder();
+				
+				holder.title = (TextView) convertView.findViewById(R.id.setStudy_tv);
+				holder.bt = (Button) convertView.findViewById(R.id.setStudy_btn);
+				convertView.setTag(holder);
+			}else {
+				holder = (ViewHolder) convertView.getTag();
+			}
+			
+			titleItem = getDate().get(position).get("ItemTitle").toString();
+			holder.title.setText(titleItem);
+			
+			holder.bt.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(getApplication(), titleItem, 0).show();
+				}
+			});
+			
+			return convertView;
+		}
+		
+	}
+	
+	public final class ViewHolder{
+		public TextView title;
+		public Button bt;
+	}
+	
 }

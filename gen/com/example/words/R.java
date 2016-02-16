@@ -36,7 +36,7 @@ public final class R {
         public static final int Arrange_btn_time=0x7f080004;
         public static final int ConsolidateWordButton=0x7f080024;
         public static final int action_Button=0x7f080019;
-        public static final int action_settings=0x7f080059;
+        public static final int action_settings=0x7f08005b;
         public static final int adjustPlanTextView=0x7f08001f;
         public static final int appMarketing_TextView=0x7f08001b;
         public static final int beginStudyButton=0x7f080023;
@@ -67,7 +67,7 @@ public final class R {
         public static final int ll_tabs=0x7f08000d;
         public static final int login_login_btn=0x7f080051;
         public static final int login_name=0x7f08004a;
-        public static final int login_next_btn=0x7f080058;
+        public static final int login_next_btn=0x7f08005a;
         public static final int login_password=0x7f08004b;
         public static final int login_weixindenglu_btn=0x7f08004d;
         public static final int login_yiyouzhanghao=0x7f08004e;
@@ -107,6 +107,8 @@ public final class R {
         public static final int restOfDayTextView=0x7f08001d;
         public static final int reviewListenTextView=0x7f080025;
         public static final int setStudy=0x7f080057;
+        public static final int setStudy_btn=0x7f080059;
+        public static final int setStudy_tv=0x7f080058;
         public static final int shoppingMall_Button=0x7f08001c;
         public static final int smallClass_Button=0x7f080017;
         public static final int studyStatisticsTextView=0x7f080027;
@@ -143,7 +145,8 @@ public final class R {
         public static final int logon=0x7f030012;
         public static final int numberdialog=0x7f030013;
         public static final int setstudy=0x7f030014;
-        public static final int title=0x7f030015;
+        public static final int setstudy_item=0x7f030015;
+        public static final int title=0x7f030016;
     }
     public static final class menu {
         public static final int main=0x7f070000;

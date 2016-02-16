@@ -7,7 +7,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 
 public class WordService {
@@ -15,7 +17,6 @@ public class WordService {
 	public SQLiteDatabase database;
 	public SharedPreferences sharedPreferences;
 	public SharedPreferences.Editor editor;
-
 	
 	public WordService(Context context){
 		sharedPreferences = context.getSharedPreferences("words", context.MODE_PRIVATE);
@@ -26,15 +27,6 @@ public class WordService {
 		this(context);
 		dbOpenHelper = new DBOpenHelper(context, dbName, null, DBOpenHelper.VERSION);
 		database = dbOpenHelper.getWritableDatabase();
-	}
-
-
-
-	public ListAdapter getStudyAdapter(Activity view) {
-		String[] item = {"初中","初中教材配套","高中","高中教材配套","大学","专业英语","出国考试","新概论英语"};
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(view, android.R.layout.simple_expandable_list_item_1, item);
-		
-		return adapter;
 	}
 
 	public Cursor queryWords(String where, String whereVale) {
@@ -50,5 +42,5 @@ public class WordService {
 		editor.putString("userPassWord", userPassWord);
 		editor.commit();
 	}
-
+	
 }
