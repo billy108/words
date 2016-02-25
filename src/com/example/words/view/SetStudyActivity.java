@@ -1,9 +1,16 @@
 package com.example.words.view;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.example.words.R;
+import com.example.words.controller.DownThread;
 import com.example.words.model.DBOpenHelper;
 import com.example.words.model.WordService;
 
@@ -11,6 +18,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -83,8 +91,30 @@ public class SetStudyActivity extends Activity {
 					intentToShowStudy(title, 6);
 					break;
 				case 7:
-					title = "–¬∏≈ƒÓ”¢”Ô";
-					intentToShowStudy(title, 7);
+//					title = "–¬∏≈ƒÓ”¢”Ô";
+//					intentToShowStudy(title, 7);
+//					String str = "date/date/com.example.words/datebases/db_word.db";
+					String str = "F:/";
+					
+					File file = new File("D:/db_word.db");
+					File file1 = new File(str);
+					try {
+						FileInputStream fis = new FileInputStream(file);
+						FileOutputStream fos = new FileOutputStream(file1);
+						byte[] buffer = new byte[1024];
+						int lenth;
+						while ((lenth = fis.read(buffer)) > 0) {
+							fos.write(buffer, 0, lenth);
+						}
+						fis.close();
+						fos.close();
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					
 					break;
 				}
 			}
@@ -103,10 +133,16 @@ public class SetStudyActivity extends Activity {
 	}
 
 	protected void intentToShowStudy(final String title,int item) {
-				Intent intent = new Intent(SetStudyActivity.this, ShowStudyActivity.class);
-				intent.putExtra("title", title);
-				intent.putExtra("item", item);
-				startActivity(intent);
+//		File file = new File("date/date/com.example.words/datebases/db_word.db");
+//		if (file.exists()) {
+			Intent intent = new Intent(SetStudyActivity.this, ShowStudyActivity.class);
+			intent.putExtra("title", title);
+			intent.putExtra("item", item);
+			startActivity(intent);
+//		}else{
+//			Toast.makeText(getApplication(), "«Îœ»œ¬‘ÿµ•¥ ø‚", 0).show();
+//		}
+				
 	}
 	
 	class MyAdapter extends BaseAdapter{
@@ -154,7 +190,7 @@ public class SetStudyActivity extends Activity {
 				
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(getApplication(), titleItem, 0).show();
+//					new Thread(new DownThread(getApplication())).start();
 				}
 			});
 			

@@ -35,7 +35,7 @@ public class Flash extends Activity {
 					intent = new Intent(Flash.this, MainActivity.class);
 				}else{
 
-					intent = new Intent(Flash.this,FirstActivity.class);
+					intent = new Intent(Flash.this,FirstViewPagerActivity.class);
 				}
 				
 				startActivity(intent);

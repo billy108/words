@@ -50,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="210dip"
+        android:clickable="false"
         android:text="微信账号一键登录" />
     
 

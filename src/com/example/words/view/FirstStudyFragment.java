@@ -47,7 +47,7 @@ public class FirstStudyFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(getActivity(), FirstActivity.class);
+				Intent i = new Intent(getActivity(), FirstViewPagerActivity.class);
 				editor.putInt("perWord", perWord);
 				editor.putInt("days", days);
 				editor.commit();

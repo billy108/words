@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class ImportWord extends SQLiteOpenHelper{
-	public static final String DB_WORD_NAME = "db_word";
+	public static final String DB_WORD_NAME = "db_word.db";
 	public static final String TABLE_WORD_1 = "word_1";
 	public static final String WORD_ID = "_id";
 	public static final String WORD_NAME = "name";
