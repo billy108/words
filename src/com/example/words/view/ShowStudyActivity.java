@@ -13,6 +13,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ShowStudyActivity extends Activity {
 	private TextView first_item;
@@ -88,18 +90,23 @@ public class ShowStudyActivity extends Activity {
 	
 	private void setShowStudyAdapter(int item) {
 		if (item == 0) {
-			SQLiteOpenHelper dbOpenHelper = new ImportWord(this, ImportWord.DB_WORD_NAME, null, DBOpenHelper.VERSION);
-			SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
-			insertWordTable(database, wordList);
-			
-			cursor = database.query(ImportWord.TABLE_WORD_1,
-					null, null , null, null, null, null);
-			
-			String[] items = {"中考单词\n" + cursor.getCount() + "个"};
-			
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(ShowStudyActivity.this, 
-					android.R.layout.simple_list_item_1, items);
-			item_lv.setAdapter(adapter);
+			try {
+				SQLiteOpenHelper dbOpenHelper = new ImportWord(this, ImportWord.DB_WORD_NAME, null, DBOpenHelper.VERSION);
+				SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
+				
+//				insertWordTable(database, wordList);
+				
+				cursor = database.query(ImportWord.TABLE_WORD_1,
+						null, null , null, null, null, null);
+				
+				String[] items = {"中考单词\n" + cursor.getCount() + "个"};
+				
+				ArrayAdapter<String> adapter = new ArrayAdapter<String>(ShowStudyActivity.this, 
+						android.R.layout.simple_list_item_1, items);
+				item_lv.setAdapter(adapter);
+			} catch (SQLiteException e) {
+				Toast.makeText(getApplication(), "请先下载单词库！", 0).show();
+			}
 		}
 	}
 	

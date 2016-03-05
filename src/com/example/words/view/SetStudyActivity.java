@@ -33,7 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class SetStudyActivity extends Activity {
-	
+	private boolean isDB_word;
 	
 	private ListView setStudy;
 	private WordService service;
@@ -91,30 +91,12 @@ public class SetStudyActivity extends Activity {
 					intentToShowStudy(title, 6);
 					break;
 				case 7:
-//					title = "新概念英语";
-//					intentToShowStudy(title, 7);
-//					String str = "date/date/com.example.words/datebases/db_word.db";
-					String str = "F:/";
-					
-					File file = new File("D:/db_word.db");
-					File file1 = new File(str);
-					try {
-						FileInputStream fis = new FileInputStream(file);
-						FileOutputStream fos = new FileOutputStream(file1);
-						byte[] buffer = new byte[1024];
-						int lenth;
-						while ((lenth = fis.read(buffer)) > 0) {
-							fos.write(buffer, 0, lenth);
-						}
-						fis.close();
-						fos.close();
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
+					File file = new File(DownThread.DB_PATH + "/databases/" + DownThread.DB_WORDS_NAME);
+					if (file.exists()) {
+						file.delete();
+					}else{
+						System.out.println("db文件不存在！");
 					}
-					
-					
 					break;
 				}
 			}
@@ -133,15 +115,15 @@ public class SetStudyActivity extends Activity {
 	}
 
 	protected void intentToShowStudy(final String title,int item) {
-//		File file = new File("date/date/com.example.words/datebases/db_word.db");
-//		if (file.exists()) {
+		File file = new File(DownThread.DB_PATH + "/databases/" + DownThread.DB_WORDS_NAME);
+		if (file.exists()) {
 			Intent intent = new Intent(SetStudyActivity.this, ShowStudyActivity.class);
 			intent.putExtra("title", title);
 			intent.putExtra("item", item);
 			startActivity(intent);
-//		}else{
-//			Toast.makeText(getApplication(), "请先下载单词库", 0).show();
-//		}
+		}else{
+			Toast.makeText(getApplication(), "请先下载单词库", 0).show();
+		}
 				
 	}
 	
@@ -190,7 +172,13 @@ public class SetStudyActivity extends Activity {
 				
 				@Override
 				public void onClick(View v) {
-//					new Thread(new DownThread(getApplication())).start();
+					File file = new File(DownThread.DB_PATH + "/databases/" + DownThread.DB_WORDS_NAME);
+					if (file.exists()) {
+						Toast.makeText(getApplication(), "单词库已存在！无须再下载！", Toast.LENGTH_SHORT).show();
+					}else{
+						new Thread(new DownThread(getApplication())).start();
+						Toast.makeText(getApplication(), "下载成功！！", Toast.LENGTH_SHORT).show();
+					}
 				}
 			});
 			

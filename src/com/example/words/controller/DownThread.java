@@ -17,6 +17,13 @@ import android.widget.Toast;
 public class DownThread implements Runnable {
 	private Context context;
 	
+	public static final String PACKAGE_NAME = "com.example.words";
+	public static final String DB_WORDS_NAME = "db_word.db";
+	public static final String DB_PATH = "/data" +
+						Environment.getDataDirectory().getAbsolutePath() + "/" + 
+						PACKAGE_NAME;
+	
+	
 	public DownThread(Context context) {
 		super();
 		this.context = context;
@@ -25,31 +32,24 @@ public class DownThread implements Runnable {
 	@Override
 	public void run() {
 		try {
-			URL url = new URL("http://localhost:8080/webapps/db_word.db");
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			InputStream is = connection.getInputStream();
-			
-			int count = is.read();
-			Toast.makeText(context, count + "", 0).show();
-			
-			int line;
-			OutputStream os = null;
-			
-			File file = new File("date/date/com.example.words/datebase/db_word.db");
-			if (file.exists()) {
-				Toast.makeText(context, "单词库已存在！无须再下载！", Toast.LENGTH_SHORT).show();
-				return;
-			}else{
+			File newDBFile = new File(DownThread.DB_PATH + "/databases/" + DownThread.DB_WORDS_NAME);
+				System.out.println("开始下载----------");
+				URL url = new URL("http://192.168.56.1:8080/db_word.db");
+				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+				InputStream is = connection.getInputStream();
+				
+				int fileLength = connection.getContentLength();
+				System.out.println("DB的大小为：" + fileLength);
+				
+				int line;
 				byte[] bs = new byte[1024];
-				os = new FileOutputStream("date/date/com.example.words/datebase/db_word.db");
+				OutputStream os = new FileOutputStream(newDBFile);
+				
 				while ((line = is.read(bs)) != -1) {
-					os.write(line);
+					os.write(bs, 0, line);
 				}
-			}
-			
-			os.close();
-			is.close();
-			
+				os.close();
+				is.close();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

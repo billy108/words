@@ -30,7 +30,7 @@ public class ImportWord extends SQLiteOpenHelper{
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		createWordTable(db);
+//		createWordTable(db);
 	}
 	
 	private void createWordTable(SQLiteDatabase db) {
