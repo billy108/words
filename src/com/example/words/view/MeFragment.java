@@ -36,7 +36,7 @@ public class MeFragment extends Fragment {
 	
 	private void clickIcon() {
 		if (!preferences.getString("userName", "11").equals("11")) {
-			mMeLoginTextView.setText(preferences.getString("userName", "11") + "\nµã»÷×¢Ïú");
+			mMeLoginTextView.setText(preferences.getString("userName", "11") + "\nç‚¹å‡»æ³¨é”€");
 			flag = true;
 		}
 	}

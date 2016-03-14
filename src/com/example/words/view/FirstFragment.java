@@ -65,13 +65,13 @@ public class FirstFragment extends Fragment {
 //		wordsNumber = i.getIntExtra("wordsNumber", 0);
 		
 		mNewWordNumTextView = (TextView) v.findViewById(R.id.newWordNumTextView);
-		mNewWordNumTextView.setText("…˙¥ " + newNum);
+		mNewWordNumTextView.setText("ÁîüËØç" + newNum);
 		
 		mFamiliarwordTextView = (TextView) v.findViewById(R.id.familiarwordTextView);
-		mFamiliarwordTextView.setText(" Ï¥ " + familiarNum);
+		mFamiliarwordTextView.setText("ÁÜüËØç" + familiarNum);
 		
 		mUnLearnWordTextView = (TextView) v.findViewById(R.id.toLearnWordTextView);
-		mUnLearnWordTextView.setText("Œ¥—ß" + unLearnedNum);
+		mUnLearnWordTextView.setText("Êú™Â≠¶" + unLearnedNum);
 		
 		
 		mRestOfDay = (TextView) v.findViewById(R.id.restOfDayTextView);
@@ -113,4 +113,5 @@ public class FirstFragment extends Fragment {
 			}
 		}
 	};
+	
 }

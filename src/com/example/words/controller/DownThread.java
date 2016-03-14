@@ -12,10 +12,12 @@ import java.net.URL;
 
 import android.content.Context;
 import android.os.Environment;
+import android.os.Handler;
 import android.widget.Toast;
 
 public class DownThread implements Runnable {
 	private Context context;
+	Handler handler;
 	
 	public static final String PACKAGE_NAME = "com.example.words";
 	public static final String DB_WORDS_NAME = "db_word.db";
@@ -24,22 +26,19 @@ public class DownThread implements Runnable {
 						PACKAGE_NAME;
 	
 	
-	public DownThread(Context context) {
+	public DownThread(Context context, Handler handler) {
 		super();
 		this.context = context;
+		this.handler = handler;
 	}
 
 	@Override
 	public void run() {
 		try {
 			File newDBFile = new File(DownThread.DB_PATH + "/databases/" + DownThread.DB_WORDS_NAME);
-				System.out.println("开始下载----------");
-				URL url = new URL("http://192.168.56.1:8080/db_word.db");
+				URL url = new URL("http://words.cooltester.com/static/source/word_1.db");
 				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 				InputStream is = connection.getInputStream();
-				
-				int fileLength = connection.getContentLength();
-				System.out.println("DB的大小为：" + fileLength);
 				
 				int line;
 				byte[] bs = new byte[1024];
@@ -48,8 +47,11 @@ public class DownThread implements Runnable {
 				while ((line = is.read(bs)) != -1) {
 					os.write(bs, 0, line);
 				}
+				
+//				handler.sendEmptyMessage(0);
 				os.close();
 				is.close();
+				
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

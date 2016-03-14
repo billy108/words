@@ -31,12 +31,12 @@ public class Flash extends Activity {
 			
 			@Override
 			public void run() {
-//				if (preferences.getString("userName", "no").equals("no")) {
+				if (preferences.getString("userName", "no").equals("no")) {
 					intent = new Intent(Flash.this, MainActivity.class);
-//				}else{
-//
-//					intent = new Intent(Flash.this,FirstViewPagerActivity.class);
-//				}
+				}else{
+
+					intent = new Intent(Flash.this,FirstViewPagerActivity.class);
+				}
 				
 				startActivity(intent);
 				finish();

@@ -37,16 +37,18 @@ public class SetStudyActivity extends Activity {
 	
 	private ListView setStudy;
 	private WordService service;
+	private DownLoadBar downLoadBar;
 	
 	private ArrayList<HashMap<String, Object>> listItem;
-	private String[] itemTV = {"³õÖĞ","³õÖĞ½Ì²ÄÅäÌ×","¸ßÖĞ","¸ßÖĞ½Ì²ÄÅäÌ×","´óÑ§","×¨ÒµÓ¢Óï","³ö¹ú¿¼ÊÔ","ĞÂ¸ÅÂÛÓ¢Óï"};
+	private String[] itemTV = {"åˆä¸­","åˆä¸­æ•™æé…å¥—","é«˜ä¸­","é«˜ä¸­æ•™æé…å¥—","å¤§å­¦","ä¸“ä¸šè‹±è¯­","å‡ºå›½è‹±è¯­","æ–°æ¦‚å¿µè‹±è¯­"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTitle("ÉèÖÃÑ§Ï°¼Æ»®");
+		setTitle("é€‰æ‹©è¯¾ç¨‹");
 		setContentView(R.layout.setstudy);
 		service = new WordService(this, DBOpenHelper.DB_NAME);
+		downLoadBar = new DownLoadBar();
 		
 		init();
 	}
@@ -63,31 +65,31 @@ public class SetStudyActivity extends Activity {
 				String title = "";
 				switch (arg2) {
 				case 0:
-					title = "³õÖĞ";
+					title = "åˆä¸­";
 					intentToShowStudy(title, 0);
 					break;
 				case 1:
-					title = "³õÖĞ½Ì²ÄÅäÌ×";
+					title = "åˆä¸­æ•™æé…å¥—";
 					intentToShowStudy(title, 1);
 					break;
 				case 2:
-					title = "¸ßÖĞ";
+					title = "é«˜ä¸­";
 					intentToShowStudy(title, 2);
 					break;
 				case 3:
-					title = "¸ßÖĞ½Ì²ÄÅäÌ×";
+					title = "é«˜ä¸­æ•™æé…å¥—";
 					intentToShowStudy(title, 3);
 					break;
 				case 4:
-					title = "´óÑ§";
+					title = "å¤§å­¦";
 					intentToShowStudy(title, 4);
 					break;
 				case 5:
-					title = "×¨ÒµÓ¢Óï";
+					title = "ä¸“ä¸šè‹±è¯­";
 					intentToShowStudy(title, 5);
 					break;
 				case 6:
-					title = "³ö¹úÓ¢Óï";
+					title = "å‡ºå›½è‹±è¯­";
 					intentToShowStudy(title, 6);
 					break;
 				case 7:
@@ -95,7 +97,7 @@ public class SetStudyActivity extends Activity {
 					if (file.exists()) {
 						file.delete();
 					}else{
-						System.out.println("dbÎÄ¼ş²»´æÔÚ£¡");
+						System.out.println("æ–‡ä»¶ä¸å­˜åœ¨");
 					}
 					break;
 				}
@@ -122,7 +124,7 @@ public class SetStudyActivity extends Activity {
 			intent.putExtra("item", item);
 			startActivity(intent);
 		}else{
-			Toast.makeText(getApplication(), "ÇëÏÈÏÂÔØµ¥´Ê¿â", 0).show();
+			Toast.makeText(getApplication(), "è¯·å…ˆä¸‹è½½å•è¯åº“ï¼", 0).show();
 		}
 				
 	}
@@ -174,10 +176,13 @@ public class SetStudyActivity extends Activity {
 				public void onClick(View v) {
 					File file = new File(DownThread.DB_PATH + "/databases/" + DownThread.DB_WORDS_NAME);
 					if (file.exists()) {
-						Toast.makeText(getApplication(), "µ¥´Ê¿âÒÑ´æÔÚ£¡ÎŞĞëÔÙÏÂÔØ£¡", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplication(), "å•è¯åº“å·²å­˜åœ¨ï¼Œæ— é¡»ä¸‹è½½ï¼", Toast.LENGTH_SHORT).show();
 					}else{
-						new Thread(new DownThread(getApplication())).start();
-						Toast.makeText(getApplication(), "ÏÂÔØ³É¹¦£¡£¡", Toast.LENGTH_SHORT).show();
+						new Thread(new DownThread(getApplication(), downLoadBar.handler)).start();
+						Toast.makeText(SetStudyActivity.this, "ä¸‹è½½æˆåŠŸ", 0).show();
+//						Intent i = new Intent(SetStudyActivity.this, DownLoadBar.class);
+//						startActivity(i);
+//						Toast.makeText(getApplication(), "ï¿½ï¿½ï¿½Ø³É¹ï¿½ï¿½ï¿½ï¿½ï¿½", Toast.LENGTH_SHORT).show();
 					}
 				}
 			});

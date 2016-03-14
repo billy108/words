@@ -1,10 +1,14 @@
 package com.example.words.view;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.example.words.controller.SingleFragmentActivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Window;
+import android.widget.Toast;
 
 public class FirstActivity extends SingleFragmentActivity {
 	@Override

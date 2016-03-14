@@ -61,15 +61,15 @@ public class FirstStudyFragment extends Fragment {
 		});
 		
 		mFirstTextView1 = (TextView) v.findViewById(R.id.first_tv2);
-		mFirstTextView1.setText(wordsNumber + "\nĞÂ´Ê×ÜÁ¿");
+		mFirstTextView1.setText(wordsNumber + "\næ–°è¯æ€»é‡");
 		mFirstTextView2 = (TextView) v.findViewById(R.id.first_tv3);
 		
 		if (flag == 1) {
-			mFirstTextView2.setText(perWord + "\nÃ¿ÈÕÑ§Ï°ĞÂ´ÊÁ¿");
+			mFirstTextView2.setText(perWord + "\næ¯æ—¥å­¦ä¹ æ–°è¯æ•°é‡");
 			days = wordsNumber / perWord;
 		}
 		if (flag == 2) {
-			mFirstTextView2.setText(days + "\nĞèÒªÑ§Ï°ÌìÊı");
+			mFirstTextView2.setText(days + "\néœ€è¦å­¦ä¹ å¤©æ•°");
 		}
 		
 		mToArrangStudyTextView = (Button) v.findViewById(R.id.first_changeMethod_btn);

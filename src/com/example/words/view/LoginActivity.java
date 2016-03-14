@@ -2,6 +2,9 @@ package com.example.words.view;
 
 import java.util.regex.Pattern;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,6 +13,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,9 +31,10 @@ import com.example.words.model.User;
 import com.example.words.model.WordService;
 
 public class LoginActivity extends Activity {
+	public static final String TAG = "loginActivity";
 	
 	private TextView login_tv;
-	private EditText login_name,login_password;
+	public EditText login_name,login_password;
 	private Button login_btn;
 	
 	private DBOpenHelper dbOpenHelper;
@@ -36,14 +42,17 @@ public class LoginActivity extends Activity {
 	
 	private WordService service;
 	
+	String path;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		setTitle("×¢²áÕËºÅ");
+		setTitle("æ³¨å†Œ");
 		getActionBar().setDisplayShowHomeEnabled(false);
 		
 		service = new WordService(this, DBOpenHelper.DB_NAME);
+		path = "http://words.cooltester.com/api/user/register?";
 		init();
 		
 		initDBOpenHelper();
@@ -81,11 +90,11 @@ public class LoginActivity extends Activity {
 				if(!Pattern.matches("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$", login_name.getText().toString())
 					){
 					
-					Toast.makeText(LoginActivity.this, "ÊÖ»úºÅ¸ñÊ½²»ÕıÈ·£¡ÇëĞŞ¸Ä£¡", 0).show();
+					Toast.makeText(LoginActivity.this, "æ‰‹æ ¼å¼ä¸æ­£ç¡®", 0).show();
 					
 				}
 				else if(!Pattern.matches("^[a-zA-Z0-9]{6,16}$", login_password.getText().toString()) ){
-					Toast.makeText(LoginActivity.this, "ÃÜÂëÒªÖÁÉÙ6Î»", 0).show();
+					Toast.makeText(LoginActivity.this, "å¯†ç æœ€å°‘6ä½", 0).show();
 				}
 				else{
 					showMultiDia();
@@ -97,38 +106,41 @@ public class LoginActivity extends Activity {
 
 		private void showMultiDia() {
 			AlertDialog.Builder multiDia=new AlertDialog.Builder(LoginActivity.this);  
-	        multiDia.setTitle("È·ÈÏÊÖ»úºÅ");  
-	        multiDia.setMessage("ÊÖ»úºÅÓÃÓÚÕËºÅµÇÂ¼ºÍÃÜÂëÕÒ»Ø£¬·Ç³£ÖØÒª£¬ÇëÈ·ÈÏÄãÌîĞ´µÄÊÖ»úºÅÊÇ·ñÕıÈ·¡£\n" + 
+	        multiDia.setTitle("ç¡®è®¤ç”¨æˆ·ä¿¡æ¯");  
+	        multiDia.setMessage("è¯·ä»”ç»†ç¡®è®¤æ‰‹æœºå·æ˜¯å¦æ­£ç¡®ï¼Œä»¥åç”¨äºè´¦å·çš„æ‰¾å›\n" + 
 	        login_name.getText().toString() + "\n");
-	        multiDia.setPositiveButton("ÕıÈ·¼ÌĞø", new DialogInterface.OnClickListener() {  
+	        multiDia.setPositiveButton("æ­£ç¡®ç»§ç»­", new DialogInterface.OnClickListener() {  
 	              
 	            @Override  
-	            public void onClick(DialogInterface dialog, int which) {  
-	            	Cursor cursor = database.query(DBOpenHelper.USER_TABLE_NAME, 
-	            			new String[]{DBOpenHelper.USER_ID}, 
-	            			DBOpenHelper.USER_EMAIL + "=?" , 
-	            			new String[]{login_name.getText().toString()}, 
-	            			null, null, null);
+	            public void onClick(DialogInterface dialog, int which) {
+	            	MyThread thread = new MyThread(login_name.getText().toString(), login_password.getText().toString());
+	            	thread.start();
 	            	
-	            	if (cursor.getCount() != 0) {
-	            		Toast.makeText(LoginActivity.this, "×¢²áÊÖ»úºÅÒÑ´æÔÚ£¡ÇëÖ±½ÓµÇÂ¼", Toast.LENGTH_LONG).show();
-	            		Intent intent = new Intent(LoginActivity.this, LogonActivity.class);
-	            		intent.putExtra("name", login_name.getText().toString());
-	            		startActivity(intent);
-					}else{
-						Intent intent = new Intent(LoginActivity.this, SetStudyActivity.class);
-		            	startActivity(intent);
-		            	User user = new User(login_name.getText().toString(), login_password.getText().toString());
-		            	dbOpenHelper.insertUserDB(database, user);
-		            	
-		            	service.setUserSharedPreferences(LoginActivity.this, login_name.getText().toString(),
-		            			login_password.getText().toString());
-		            	
-		            	Toast.makeText(LoginActivity.this, "×¢²á³É¹¦£¡", 0).show();
-					}
-	            }  
+//	            	Cursor cursor = database.query(DBOpenHelper.USER_TABLE_NAME, 
+//	            			new String[]{DBOpenHelper.USER_ID}, 
+//	            			DBOpenHelper.USER_EMAIL + "=?" , 
+//	            			new String[]{login_name.getText().toString()}, 
+//	            			null, null, null);
+//	            	
+//	            	if (cursor.getCount() != 0) {
+//	            		Toast.makeText(LoginActivity.this, "æ³¨é”Ÿæ–¤æ‹·é”Ÿè¡—ä¼™æ‹·é”Ÿæ–¤æ‹·é”Ÿçª–è¾¾æ‹·é”ŸèŠ‚ï½æ‹·é”Ÿæ–¤æ‹·ç›´é”Ÿæ¥ç¢‰æ‹·å½•", Toast.LENGTH_LONG).show();
+//	            		Intent intent = new Intent(LoginActivity.this, LogonActivity.class);
+//	            		intent.putExtra("name", login_name.getText().toString());
+//	            		startActivity(intent);
+//					}else{
+//						Intent intent = new Intent(LoginActivity.this, SetStudyActivity.class);
+//		            	startActivity(intent);
+//		            	User user = new User(login_name.getText().toString(), login_password.getText().toString());
+//		            	dbOpenHelper.insertUserDB(database, user);
+//		            	
+//		            	service.setUserSharedPreferences(LoginActivity.this, login_name.getText().toString(),
+//		            			login_password.getText().toString());
+//		            	
+//		            	Toast.makeText(LoginActivity.this, "æ³¨é”Ÿæ–¤æ‹·æ™’é”Ÿæ–¤æ‹·é”Ÿï¿½", 0).show();
+//					}
+	            	}
 	        });  
-	        multiDia.setNeutralButton("·µ»ØĞŞ¸Ä", new DialogInterface.OnClickListener() {  
+	        multiDia.setNeutralButton("è¿”å›ä¿®æ”¹", new DialogInterface.OnClickListener() {  
 	              
 	            @Override  
 	            public void onClick(DialogInterface dialog, int which) {  
@@ -137,10 +149,35 @@ public class LoginActivity extends Activity {
 	        multiDia.create().show();  
 		}
 	};
+	
+	Handler handler = new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			String jsonString = (String) msg.obj;
+			System.out.println("run()åçš„json:" + jsonString);
+			try {
+				JSONObject jsonObject = new JSONObject(jsonString);
+				int responseCode = jsonObject.getInt("code");
+				if(responseCode == 22000){
+					Intent intent = new Intent(LoginActivity.this, SetStudyActivity.class);
+					startActivity(intent);
+					
+					service.setUserSharedPreferences(LoginActivity.this, login_name.getText().toString(),
+							login_password.getText().toString());
+					Toast.makeText(LoginActivity.this, "æ³¨å†ŒæˆåŠŸï¼", 0).show();
+				}
+				else {
+					String text = jsonObject.getString("message");
+					Toast.makeText(LoginActivity.this, text , 0).show();
+				} 
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		};
+	};
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add("Ìø¹ı").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+//		menu.add("é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		
 		return super.onCreateOptionsMenu(menu);
 		
@@ -152,4 +189,27 @@ public class LoginActivity extends Activity {
 		startActivity(intent);
 		return super.onOptionsItemSelected(item);
 	}
+	
+	class MyThread extends Thread{
+		String name, password;
+		String jsonString;
+		
+		public MyThread(String name, String password){
+			this.name = name;
+			this.password = password;
+		}
+    	@Override
+    	public void run() {
+    		super.run();
+    		String userPath = path + "username=" + name +"&password=" + password;
+    		System.out.println("urlæ˜¯ï¼š" + userPath);
+    		jsonString = service.getNet(userPath);
+    		System.out.println("run()é‡Œçš„jsonæ˜¯ï¼š" + jsonString);
+    		Message msg = new Message();
+    		msg.obj = jsonString;
+    		handler.sendMessage(msg);
+    		
+    	}
+    	
+    }
 }

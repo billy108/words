@@ -2,6 +2,9 @@ package com.example.words.view;
 
 import java.util.regex.Pattern;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.example.words.R;
 import com.example.words.model.DBOpenHelper;
 import com.example.words.model.WordService;
@@ -13,6 +16,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,12 +34,15 @@ public class LogonActivity extends Activity {
 	private Button mLogin_btn;
 	private WordService service;
 	
+	private String path;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.logon);
-		setTitle("µÇÂ¼");
+		setTitle("ç™»å½•");
 		getActionBar().setDisplayShowHomeEnabled(false);
+		path = "http://words.cooltester.com/api/user/login?";
 		
 		init();
 	}
@@ -78,34 +86,84 @@ public class LogonActivity extends Activity {
 						null, null, null);
 				
 				if (!Pattern.matches("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$", logon_name.getText().toString())) {
-					Toast.makeText(LogonActivity.this, "ÊÖ»úºÅ¸ñÊ½²»ÕıÈ·£¡ÇëĞŞ¸Ä£¡", 0).show();
+					Toast.makeText(LogonActivity.this, "æ‰‹æœºæ ¼å¼ä¸æ­£ç¡®ï¼", 0).show();
 				}
 				else if(!Pattern.matches("^[a-zA-Z0-9]{6,16}$", logon_password.getText().toString())){
-					Toast.makeText(LogonActivity.this, "ÃÜÂëÒªÖÁÉÙ6Î»", Toast.LENGTH_LONG).show();
+					Toast.makeText(LogonActivity.this, "å¯†ç æ ¼å¼ä¸æ­£ç¡®ï¼", Toast.LENGTH_LONG).show();
 				}else{
-					if (cursor.getCount() == 0) {
-						Toast.makeText(LogonActivity.this, "ÓÃ»§²»´æÔÚ£¬ÇëÏÈ×¢²á£¡", Toast.LENGTH_SHORT).show();
-					}else{
-						cursor.moveToFirst();
-						System.out.println(logon_password.getText().toString());
-						if (cursor.getString(cursor.getColumnIndex(DBOpenHelper.USER_PASSWORD)) 
-										.equals(logon_password.getText().toString())){
-							Intent intent1 = new Intent(LogonActivity.this, SetStudyActivity.class);
-							startActivity(intent1);
-							
-							service.setUserSharedPreferences(LogonActivity.this, logon_name.getText().toString(),
-									logon_password.getText().toString());
-							
-							Toast.makeText(LogonActivity.this, "»¶Ó­»ØÀ´£¡£¡", Toast.LENGTH_SHORT).show();
-						}else{
-							logon_password.setText("");
-							Toast.makeText(LogonActivity.this, "ÃÜÂë²»ÕıÈ·£¡ÇëÖØĞÂÊäÈëÃÜÂë", Toast.LENGTH_SHORT).show();
-						}
-					}
+					MyThread thread = new MyThread(logon_name.getText().toString(), logon_password.getText().toString());
+					thread.start();
+//					if (cursor.getCount() == 0) {
+//						Toast.makeText(LogonActivity.this, "ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½á£¡", Toast.LENGTH_SHORT).show();
+//					}else{
+//						cursor.moveToFirst();
+//						System.out.println(logon_password.getText().toString());
+//						if (cursor.getString(cursor.getColumnIndex(DBOpenHelper.USER_PASSWORD)) 
+//										.equals(logon_password.getText().toString())){
+//							Intent intent1 = new Intent(LogonActivity.this, SetStudyActivity.class);
+//							startActivity(intent1);
+//							
+//							service.setUserSharedPreferences(LogonActivity.this, logon_name.getText().toString(),
+//									logon_password.getText().toString());
+//							
+//							Toast.makeText(LogonActivity.this, "ï¿½ï¿½Ó­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", Toast.LENGTH_SHORT).show();
+//						}else{
+//							logon_password.setText("");
+//							Toast.makeText(LogonActivity.this, "ï¿½ï¿½ï¿½ë²»ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", Toast.LENGTH_SHORT).show();
+//						}
+//					}
 				}
 				break;
 			}
 		}
 	};
+	
+	Handler handler = new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			String jsonString = (String) msg.obj;
+			System.out.println("run()åçš„json:" + jsonString);
+			try {
+				JSONObject jsonObject = new JSONObject(jsonString);
+				int responseCode = jsonObject.getInt("code");
+				if(responseCode == 22000){
+					Intent intent = new Intent(LogonActivity.this, SetStudyActivity.class);
+					startActivity(intent);
+					
+					service.setUserSharedPreferences(LogonActivity.this, logon_name.getText().toString(),
+							logon_password.getText().toString());
+					Toast.makeText(LogonActivity.this, "æ³¨å†ŒæˆåŠŸï¼", 0).show();
+				}
+				else {
+					String text = jsonObject.getString("message");
+					Toast.makeText(LogonActivity.this, text , 0).show();
+				} 
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		};
+	};
+	
+	class MyThread extends Thread{
+		String name, password;
+		String jsonString;
+		
+		public MyThread(String name, String password){
+			this.name = name;
+			this.password = password;
+		}
+    	@Override
+    	public void run() {
+    		super.run();
+    		String userPath = path + "username=" + name +"&password=" + password;
+    		System.out.println("urlæ˜¯ï¼š" + userPath);
+    		jsonString = service.getNet(userPath);
+    		System.out.println("run()é‡Œçš„jsonæ˜¯ï¼š" + jsonString);
+    		Message msg = new Message();
+    		msg.obj = jsonString;
+    		handler.sendMessage(msg);
+    		
+    	}
+    	
+    }
 	
 }

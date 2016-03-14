@@ -47,7 +47,7 @@ public class ArrangeStudyActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_arrangestudy);
-		setTitle("°²ÅÅÑ§Ï°¼Æ»®");
+		setTitle("å®‰æ’å­¦ä¹ è®¡åˆ’");
 		init();
 	}
 	
@@ -57,15 +57,15 @@ public class ArrangeStudyActivity extends Activity {
 		
 		
 		tv1 = (TextView) findViewById(R.id.ArrangeText1);
-		tv1.setText("³õÖĞ - ÖĞ¿¼µ¥´Ê£¨" + wordsNumber + "´Ê£©");
+		tv1.setText("åˆä¸­-ä¸­è€ƒå•è¯ï¼ˆ" + wordsNumber + "ï¼‰è¯");
 		tv2 = (TextView) findViewById(R.id.ArrangeText2);
-		tv2.setText("Ñ¡ÔñÒ»ÖÖÄãÏ²»¶µÄÑ§Ï°°²ÅÅ·½Ê½");
+		tv2.setText("é€‰æ‹©ä¸€ç§ä½ å–œæ¬¢çš„å­¦ä¹ æ–¹å¼");
 		
 		btn_time = (Button) findViewById(R.id.Arrange_btn_time);
-		btn_time.setText("°´Ê±¼ä\nÎÒÒªXÔÂXÈÕÍê³É");
+		btn_time.setText("æŒ‰æ—¶é—´\næˆ‘è¦XæœˆXæ—¥å®Œæˆ");
 		
 		btn_number = (Button) findViewById(R.id.Arrange_btn_Number);
-		btn_number.setText("°´ÊıÁ¿\nÎÒÃ¿ÌìÑ§X¸ö");
+		btn_number.setText("æŒ‰æ•°é‡\næˆ‘è¦æ¯å¤©å­¦Xä¸ª");
 		
 		
 		
@@ -83,8 +83,8 @@ public class ArrangeStudyActivity extends Activity {
 					LayoutInflater inflater = getLayoutInflater();
 					View layout = inflater.inflate(R.layout.datedialog, (ViewGroup) findViewById(R.id.dialog));
 					
-					new AlertDialog.Builder(ArrangeStudyActivity.this).setTitle("½ØÖ¹ÈÕÆÚ").setView(layout)
-					.setPositiveButton("È·¶¨", new DialogInterface.OnClickListener(){
+					new AlertDialog.Builder(ArrangeStudyActivity.this).setTitle("æˆªæ­¢æ—¶é—´").setView(layout)
+					.setPositiveButton("ç¡®å®š", new DialogInterface.OnClickListener(){
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -96,7 +96,7 @@ public class ArrangeStudyActivity extends Activity {
 						}
 						
 					})
-					.setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener(){
+					.setNegativeButton("å–æ¶ˆ", new DialogInterface.OnClickListener(){
 
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -112,8 +112,8 @@ public class ArrangeStudyActivity extends Activity {
 					LayoutInflater inflater1 = getLayoutInflater();
 					View layout1 = inflater1.inflate(R.layout.numberdialog, (ViewGroup) findViewById(R.id.nubmerDialog));
 					
-					new AlertDialog.Builder(ArrangeStudyActivity.this).setTitle("¹Ì¶¨´ÊÁ¿").setView(layout1)
-					.setPositiveButton("È·¶¨", new DialogInterface.OnClickListener(){
+					new AlertDialog.Builder(ArrangeStudyActivity.this).setTitle("å›ºå®šè¯é‡").setView(layout1)
+					.setPositiveButton("ç¡®å®š", new DialogInterface.OnClickListener(){
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -126,7 +126,7 @@ public class ArrangeStudyActivity extends Activity {
 						}
 						
 					})
-					.setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener(){
+					.setNegativeButton("å–æ¶ˆ", new DialogInterface.OnClickListener(){
 
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -144,7 +144,7 @@ public class ArrangeStudyActivity extends Activity {
 				final TextView numberChangedTextView = (TextView)layout.findViewById(R.id.numberDiaglo_tv);
 				numberPicker = (NumberPicker) layout.findViewById(R.id.numberPicker);
 				
-				numberChangedTextView.setText("Ô¤¼ÆÍê³ÉÌìÊı£º" + days + "Ìì");
+				numberChangedTextView.setText("é¢„è®¡å®Œæˆå¤©æ•°ï¼š" + days + "å¤©");
 				
 				final String[] displayedValues = {"5","15","25","35","45",
 						"60","80","100","150","200","250","300"}; 
@@ -160,7 +160,7 @@ public class ArrangeStudyActivity extends Activity {
 						a = Integer.parseInt(displayedValues[newVal-1]);
 						System.out.println(a);
 						days = wordsNumber/a;
-						numberChangedTextView.setText("Ô¤¼ÆÍê³ÉÌìÊı£º" + days + "Ìì");
+						numberChangedTextView.setText("é¢„è®¡å®Œæˆå¤©æ•°ï¼š" + days + "å¤©");
 					}
 				});
 				
@@ -174,7 +174,7 @@ public class ArrangeStudyActivity extends Activity {
 				long currentTime = c.getTimeInMillis();
 				datePicker1.setMinDate(currentTime);
 				
-				dateDialogTextView.setText("Ô¤¼ÆÃ¿ÈÕÑ§Ï°µ¥´ÊÊıÁ¿Îª£º" + wordsNumber);
+				dateDialogTextView.setText("é¢„è®¡æ¯æ—¥å­¦ä¹ å•è¯æ•°é‡ä¸ºï¼š" + wordsNumber);
 				
 				OnDateChangedListener listen = new OnDateChangedListener() {
 					
@@ -188,7 +188,7 @@ public class ArrangeStudyActivity extends Activity {
 						int days = (int) (beteenMill / TIME_DAY);
 						perWord = wordsNumber / days;
 						
-						dateDialogTextView.setText("Ô¤¼ÆÃ¿ÈÕÑ§Ï°µ¥´ÊÊıÁ¿Îª£º" + perWord);
+						dateDialogTextView.setText("é¢„è®¡æ¯æ—¥å­¦ä¹ å•è¯æ•°é‡ä¸ºï¼š" + perWord);
 					}
 				};
 				datePicker1.init(yearc, monthc, dayOfMonthc, listen);

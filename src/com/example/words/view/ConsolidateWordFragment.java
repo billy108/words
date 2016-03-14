@@ -17,7 +17,7 @@ public class ConsolidateWordFragment extends Fragment {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		getActivity().setTitle("巩固熟词");
+		getActivity().setTitle("宸╁浐鐔熻瘝");
 		super.onCreate(savedInstanceState);
 		
 	}
@@ -29,8 +29,8 @@ public class ConsolidateWordFragment extends Fragment {
 		
 		new AlertDialog.Builder(getActivity())
 		.setView(LayoutInflater.from(getActivity()).inflate(R.layout.hint, null))
-		.setTitle("提示")
-		.setNegativeButton("确定", null)
+		.setTitle("鎻愮ず")
+		.setNegativeButton("纭畾", null)
 		.create()
 		.show();
 		
